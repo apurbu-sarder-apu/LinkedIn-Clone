@@ -14,6 +14,18 @@ function Login() {
 
     const loginToApp = (e) => {
         e.preventDefault();
+
+        auth.signInWithEmailAndPassword(email, password)
+        .then(userAuth => {
+            dispatch(login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: userAuth.user.displayName,
+                profileUrl: userAuth.user.photoURL,
+            })
+            );
+        })
+        .catch((error) => alert(error));
     };
     const register = () => {
         if (!name) {
@@ -31,7 +43,7 @@ function Login() {
                         email: userAuth.user.email,
                         uid: userAuth.user.uid,
                         displayName: name,
-                        photoURL: profilePic
+                        photoUrl: profilePic
                     })
                     );
                 });
@@ -80,4 +92,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Login;
